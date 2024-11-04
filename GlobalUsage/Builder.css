@@ -1,0 +1,44 @@
+/* Inherit styles from the original style file */
+.builder-container {
+    display: flex;
+}
+.widget-sidebar {
+    width: 200px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+.workspace {
+    flex-grow: 1;
+    margin: 10px;
+    padding: 20px;
+    background-color: #2c2c2c;
+    border: 1px solid #ccc;
+    min-height: 500px;
+    position: relative;
+}
+.widget {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    cursor: grab;
+}
+.editor-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+.editor-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+

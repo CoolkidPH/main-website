@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Epic Website</title>
+  <link rel="icon" type="image/x-icon" href="./Images/icon.ico">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+
+  <div id="loadingScreen">
+    <div class="loader"></div>
+  </div>
+  
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>EXPLORER</h2>
+      <div id="data-sidebar">Loading...</div>
+    </aside>
+
+    <!-- Main Editor Area -->
+    <div class="main-editor">
+      <div class="tabs">
+        <span class="tab active" id="currentTab">index.html</span>
+        <i id="fullscreenToggle" class="fas fa-expand fullscreen-icon"></i>
+      </div>
+      <div class="editor" id="editor">
+        <iframe id="editorFrame" class="editor-frame"></iframe>
+      </div>
+      <div class="terminal-container">
+        <div class="resize-handle"></div>
+        <div class="terminal">
+          <div class="terminal-output" id="terminalOutput"></div>
+          <div class="terminal-input">
+            <span>PS D:\Projects\Epic Website&gt; </span>
+            <input type="text" id="terminalInput" placeholder="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="miniPlayer" class="mini-player">
+    <iframe id="miniPlayerFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+  
+  
+  
+  <div id="goodbyeScreen">
+    <div class="goodbye-content">
+      <h1>Goodbye!</h1>
+      <p>We hope to see you soon...</p>
+      <div class="blinking-cursor"></div>
+    </div>
+  </div>  
+
+  <script src="main.js"></script> <!-- Move this to the end of the body -->
+</body>
+</html>

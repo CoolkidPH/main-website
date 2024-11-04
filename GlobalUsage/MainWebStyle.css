@@ -1,0 +1,304 @@
+body {
+    background-color: #2c2c2c; /* Dark gray, similar to code editor themes */
+    background: radial-gradient(circle at center, #000000, #2c2c2c);
+
+    color: #d4d4d4; /* Light gray for text to ensure readability */
+    font-family: Consolas, "Courier New", monospace; /* Monospace font for code style */
+    padding: 0px;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+}
+
+/* Custom selection color for all text */
+::selection {
+    background: white;
+    color: black; /* Adjust for readability */
+}
+
+.line-numbers {
+    text-align: right;
+    padding-right: 10px;
+    user-select: none;
+    color: #858585; /* Gray color for line numbers */
+    position: relative;
+    margin-right: 10px;
+}
+.content {
+    flex: 1;
+    max-width: 90%;
+}
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ffffff; /* White title for emphasis */
+    text-shadow: 0 0 5px #ffffff;
+}
+p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px #ffffff;
+}
+img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 20px 0;
+}
+.about-me-container {
+    display: flex;
+    align-items: center;
+    background-color: #2c2c2c2f;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    backdrop-filter: blur(15px);
+}
+.about-me-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 3px solid #ffffff;
+}
+.about-me-content {
+    flex: 1;
+}
+.about-me-content h2 {
+    font-size: 1.8em;
+    margin: 0 0 10px;
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff;
+}
+.about-me-content p {
+    font-size: 1.1em;
+    margin: 5px 0;
+    color: #d4d4d4;
+    text-shadow: 0 0 5px #d4d4d4;
+}
+.about-me-content p.highlight {
+    color: #9ACD32; /* Light green color to highlight important text */
+    text-shadow: 0 0 5px #9ACD32;
+}
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    text-shadow: 0 0 5px #d4d4d4;
+}
+.social-icons a {
+    text-decoration: none;
+    color: #d4d4d4;
+    font-size: 1.5em;
+}
+.social-icons a:hover {
+    color: #ffffff;
+}
+.projects-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.projects-section h2 {
+    color: #ffffff;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 0 5px #ffffff;
+}
+.scroll-frame {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    background-color: #2c2c2c36;
+    border-radius: 10px;
+    height: auto;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+.project-card {
+    background-color: #2c2c2c00;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    height: auto;
+    flex-shrink: 0;
+    color: #d4d4d4;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.project-card img {
+    width: 100%;
+    height: 150px; /* Set a fixed height for cropping */
+    border-radius: 10px;
+    object-fit: cover; /* This will crop the image to fill the container */
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 5px #ffffff;
+}
+.project-card h3 {
+    font-size: 1.4em;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #ffffff;
+}
+.project-card p {
+    font-size: 1em;
+    margin-bottom: 15px;
+    color: #d4d4d4;
+    text-align: center;
+    text-shadow: 0 0 5px #d4d4d4;
+}
+.project-card a {
+    text-decoration: none;
+    background-color: #4b6cb7;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    text-shadow: 0 0 5px #ffffff;
+    box-shadow: 0px 0px 5px #4b6cb7;
+}
+.project-card a:hover {
+    background-color: #3a57a6;
+    box-shadow: 0px 0px 10px #3a57a6;
+}
+
+/* Main Page Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 10px; /* Width of the vertical scrollbar */
+}
+body::-webkit-scrollbar-track {
+    background-color: #2c2c2c; /* Track color to match the dark theme */
+    border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #4b6cb7; /* Thumb color matching button color */
+    border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #3a57a6; /* Darker color on hover */
+}
+ /* Scrollbar Styling */
+ .scroll-frame::-webkit-scrollbar {
+    height: 10px; /* Height of the horizontal scrollbar */
+}
+.scroll-frame::-webkit-scrollbar-track {
+    background-color: #2c2c2c; /* Track color, matching the card background */
+    border-radius: 10px;
+}
+.scroll-frame::-webkit-scrollbar-thumb {
+    background-color: #4b6cb7; /* Thumb color, matching button color */
+    border-radius: 10px;
+}
+.scroll-frame::-webkit-scrollbar-thumb:hover {
+    background-color: #3a57a6; /* Darker color on hover */
+}
+.image-with-text {
+    display: flex;
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+.image-section {
+    width: 50%;
+    background-color: #2c2c2c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.text-section {
+    width: 50%;
+    background-color: #2c2c2c;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.text-section h2 {
+    color: #ffffff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+.text-section p {
+    font-size: 1em;
+    color: #d4d4d4;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.text-section p a {
+    color: #9ACD32; /* Light green color for links */
+    text-decoration: none;
+}
+.text-section p a:hover {
+    text-decoration: underline;
+}
+.links {
+    display: flex;
+    gap: 10px;
+    font-size: 1em;
+}
+.links a {
+    color: #9ACD32;
+    text-decoration: none;
+}
+.links a:hover {
+    text-decoration: underline;
+}
+
+.gallery-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+.gallery-section h2 {
+    color: #ffffff;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 10px;
+}
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Create different spans for different image sizes */
+.gallery-item:nth-child(2n) {
+    grid-row: span 2;
+}
+.gallery-item:nth-child(3n) {
+    grid-column: span 2;
+}
+.gallery-item:nth-child(5n) {
+    grid-row: span 2;
+    grid-column: span 2;
+}

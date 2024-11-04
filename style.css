@@ -1,0 +1,562 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+  }
+
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  
+  body {
+    background-color: #4b4d58;
+    color: #d4d4d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+    border: 1px solid #333;
+    box-shadow: 0px 0px 20px #333;
+  }
+
+  .sidebar h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .main-editor {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: #383838; /* Lighter than sidebar */
+  }
+  
+  
+  .tabs {
+    display: flex;
+    background-color: #333;
+    padding: 5px 10px;
+  }
+  
+  .tab {
+    margin-right: 10px;
+    padding: 5px;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: #333;
+    color: #ffffff;
+  }
+  
+  .editor {
+    flex-grow: 1;
+    padding: 0px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    color: #d4d4d4;
+    max-width: auto;
+  }
+
+
+  .terminal-container {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    max-height: 50vh;
+    position: relative;
+    background-color: #171717; /* Darker than sidebar */
+  }
+  
+  .resize-handle {
+    height: 5px;
+    background-color: #333;
+    cursor: ns-resize;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .terminal {
+    flex-grow: 1;
+    padding: 10px;
+    color: #d4d4d4;
+    font-size: 14px;
+    overflow-y: auto;
+    background-color: #171717; /* Matches terminal container */
+  }
+  
+  .terminal-input {
+    display: flex;
+    align-items: left;
+    display: inline-block;
+    text-shadow: 0 0 5px #fff;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .terminal-output {
+    text-shadow: 0 0 5px #fff;
+  }
+  
+  .terminal-input span {
+    color: #d4d4d4;
+    margin-right: 5px;
+  }
+  
+  .terminal-input input {
+    flex-grow: 1;
+    background-color: #171717; /* Match terminal background */
+    color: #d4d4d4;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-family: monospace;
+  }
+
+  .sidebar {
+    overflow-x: auto;
+    gap: 0px;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 1px;
+    height: auto;
+    width: auto;
+    scroll-behavior: smooth;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    cursor: pointer;
+    margin-bottom: 5px;
+    display: block; /* Each file or folder will be on its own line */
+}
+
+.folder,
+.file {
+    display: flex; /* Ensures icon and filename are in the same line */
+    align-items: center;
+    margin-bottom: 5px;
+    white-space: nowrap; /* Prevents line break */
+}
+
+.file {
+    color: #e1a130;
+    margin-right: 5px;
+    text-shadow: 0 0 5px #e1a130;
+}
+
+.folder > i.fa-folder,
+.file > i.fa-file-code {
+    width: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.folder {
+    color: #d4d4d4;
+    text-shadow: 0 0 5px #d4d4d4;
+}
+
+.nested {
+    display: none;
+    padding-left: 20px;
+}
+
+.folder.expanded > .nested {
+    display: block;
+}
+
+.nested li {
+    padding-left: 10px;
+    display: block;
+}
+
+/* Link file styling */
+.link-file {
+  color: #1e90ff; /* Blue color for links */
+  cursor: pointer;
+  text-shadow: 0 0 5px #1e90ff;
+}
+.link-file i {
+  color: #1e90ff; /* Icon color for links */
+}
+
+/* Text file styling */
+.txt-file {
+  color: #ffffff; /* White color for text files */
+  cursor: pointer;
+  text-shadow: 0 0 5px #ffffff;
+}
+.txt-file i {
+  color: #ffffff; /* Icon color for text files */
+}
+
+.iframe-file {
+  color: #4a90e2; /* Different color for iframe links */
+  cursor: pointer;
+}
+
+  /* Make sure the main editor takes up all available space */
+.main-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  padding: 10px;
+  background-color: #333;
+  color: #d4d4d4;
+}
+
+.tab {
+  margin-right: 10px;
+}
+
+.editor {
+  flex-grow: 1; /* Allow the editor to take up the remaining space */
+  width: 100%;
+  height: 100%;
+  background-color: #2c2c2c;
+}
+
+.editor-frame {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove iframe border */
+}
+
+.main-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  padding: 10px;
+  background-color: #333;
+  color: #d4d4d4;
+}
+
+.tab {
+  margin-right: 10px;
+}
+
+.editor {
+  flex-grow: 1; /* Editor area takes up remaining space */
+  width: 100%;
+  height: 100%;
+}
+
+.editor-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.terminal-container {
+  display: flex;
+  flex-direction: column;
+  height: 150px; /* Fixed height for the terminal */
+  width: 100%;
+  background-color: #000000;
+  border-top: 1px solid #333;
+}
+
+.terminal {
+  flex-grow: 1;
+  padding: 10px;
+  color: #d4d4d4;
+  font-size: 14px;
+  overflow-y: auto;
+}
+
+.resize-handle {
+  height: 5px;
+  background-color: #333;
+  cursor: ns-resize;
+  position: relative;
+}
+.main-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #d4d4d4;
+}
+
+.tab {
+  margin-right: auto; /* Move the tab name to the left */
+}
+
+#fullscreenToggle {
+  background-color: #444;
+  color: #d4d4d4;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.editor.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: #1e1e1e;
+}
+
+.terminal-container {
+  height: 150px; /* Fixed height for terminal */
+  background-color: #1e1e1e;
+  border-top: 1px solid #333;
+}
+
+.mini-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 170px;
+  z-index: 1000;
+  cursor: move;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  display: "none";
+}
+
+.fullscreen-icon {
+  cursor: pointer;
+  margin-left: auto; /* Push icon to the right */
+  padding: 5px;
+  color: #d4d4d4;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.fullscreen-icon:hover {
+  color: #ffffff; /* Change color on hover */
+}
+
+/* Lightbox overlay */
+.lightbox {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  z-index: 9999; /* High z-index to ensure it’s on top */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Lightbox content */
+.lightbox-content {
+  position: relative;
+  background-color: #fff;
+  width: 80%;
+  height: 80%;
+  max-width: 800px;
+  max-height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+  z-index: 10000; /* Ensure it's on top of the lightbox content */
+}
+
+/* Loading Screen */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease; /* Fade-out transition */
+}
+
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #333;
+  border-top: 5px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinner Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Background overlay effect */
+/* Background overlay effect */
+.transparent-ui .container {
+  background-color: rgba(30, 30, 30, 0.85); /* Slight transparency for the main container */
+}
+
+.transparent-ui .sidebar,
+.transparent-ui .main-editor,
+.transparent-ui .terminal-container,
+.transparent-ui .tabs {
+  background-color: rgba(30, 30, 30, 0.445); /* Slight transparency for sidebar, editor, terminal, and tabs */
+}
+
+.transparent-ui .terminal {
+  background-color: rgba(23, 23, 23, 0); /* Slightly darker transparency for terminal content */
+}
+
+
+/* Background GIF */
+body.transparent-background {
+  background-size: cover; /* Scales to cover the viewport, cropping as needed */
+  background-position: center; /* Centers the GIF in the viewport */
+  background-repeat: no-repeat; /* Prevents the GIF from repeating */
+  overflow: hidden;
+}
+
+/* CSS for the blinking square */
+.blinking-cursor {
+  display: inline-block;
+  width: 10px;  /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  background-color: #ffffff;
+  margin-left: 5px; /* Adds some space if placed next to text */
+  animation: blink 1s step-start infinite;
+}
+
+#goodbyeScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(30, 30, 30, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 5s forwards;
+}
+
+.goodbye-content {
+  text-align: center;
+  color: #ffffff;
+  animation: fadeOut 10s forwards;
+}
+
+#goodbyeScreen.show {
+  opacity: 100;
+  visibility: visible;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  background-color: #ffffff;
+  margin-left: 5px;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 100; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+#miniPlayer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  height: 200px;
+  z-index: 1000;
+  cursor: move;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #333;
+  bottom: 5px;
+  right: 5px;
+  cursor: se-resize;
+}
+
+#cursor { 
+  position: absolute; 
+  width: 20px;  /* Size of the cursor */ 
+  height: 20px; /* Size of the cursor */ 
+  border-radius: 50%; 
+  background-color: rgba(255, 255, 255, 0.8); /* Cursor color */ 
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Glowing effect */ 
+  pointer-events: none; /* Prevent the cursor from blocking mouse events */ 
+  transition: transform 0.1s ease; /* Smooth movement */ 
+} 
