@@ -1,19 +1,53 @@
+/* Initial state for elements before animation */
+* {
+    opacity: 0;
+    transform: translateX(-100%); /* Start off-screen to the left */
+}
+
+/* Slide-in animation */
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Slide-in effect class */
+.slide-in {
+    animation: slideInFromLeft 0.5s ease forwards; /* Adjust duration as needed */
+}
+
+.loaded {
+    opacity: 1;
+    transform: translateX(0); /* Start off-screen to the left */
+}
+
 body {
     background-color: #2c2c2c; /* Dark gray, similar to code editor themes */
     background: radial-gradient(circle at center, #000000, #2c2c2c);
-
+    background-image: url('../Images/space-galaxy.gif'); 
+    background-attachment: scroll; /* Background moves with page scroll */
+    background-size: cover;
+    background-position: center;
     color: #d4d4d4; /* Light gray for text to ensure readability */
     font-family: Consolas, "Courier New", monospace; /* Monospace font for code style */
     padding: 0px;
     max-width: 100%;
     margin: auto;
     display: flex;
+    image-rendering: smooth;
 }
 
 /* Custom selection color for all text */
 ::selection {
     background: white;
     color: black; /* Adjust for readability */
+    text-shadow: 0 0 2px #000000;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0);
 }
 
 .line-numbers {
@@ -48,7 +82,7 @@ img {
 .about-me-container {
     display: flex;
     align-items: center;
-    background-color: #2c2c2c2f;
+    background-color: #2c2c2c00;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
@@ -60,6 +94,7 @@ img {
     border-radius: 50%;
     margin-right: 20px;
     border: 3px solid #ffffff;
+    filter: drop-shadow(0px 0px 5px rgb(255, 255, 255));
 }
 .about-me-content {
     flex: 1;
@@ -109,9 +144,9 @@ img {
 .scroll-frame {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
-    padding: 20px;
-    background-color: #2c2c2c36;
+    gap: 0px;
+    padding: 0px;
+    background-color: #2c2c2c00;
     border-radius: 10px;
     height: auto;
     width: 100%;
@@ -130,6 +165,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    backdrop-filter: blur(15px);
 }
 .project-card img {
     width: 100%;
@@ -137,8 +173,12 @@ img {
     border-radius: 10px;
     object-fit: cover; /* This will crop the image to fill the container */
     margin-bottom: 15px;
-    box-shadow: 0px 0px 5px #ffffff;
+    mask-image: radial-gradient(ellipse, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: radial-gradient(ellipse, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    mask-composite: intersect;
+    overflow: hidden;
 }
+
 .project-card h3 {
     font-size: 1.4em;
     color: #ffffff;
@@ -174,7 +214,7 @@ body::-webkit-scrollbar {
     width: 10px; /* Width of the vertical scrollbar */
 }
 body::-webkit-scrollbar-track {
-    background-color: #2c2c2c; /* Track color to match the dark theme */
+    background-color: #2c2c2c7c; /* Track color to match the dark theme */
     border-radius: 10px;
 }
 body::-webkit-scrollbar-thumb {
@@ -189,15 +229,15 @@ body::-webkit-scrollbar-thumb:hover {
     height: 10px; /* Height of the horizontal scrollbar */
 }
 .scroll-frame::-webkit-scrollbar-track {
-    background-color: #2c2c2c; /* Track color, matching the card background */
+    background-color: #2c2c2c7c; /* Track color, matching the card background */
     border-radius: 10px;
 }
 .scroll-frame::-webkit-scrollbar-thumb {
-    background-color: #4b6cb7; /* Thumb color, matching button color */
+    background-color: #4b6bb77c; /* Thumb color matching button color */
     border-radius: 10px;
 }
 .scroll-frame::-webkit-scrollbar-thumb:hover {
-    background-color: #3a57a6; /* Darker color on hover */
+    background-color: #4b6cb7; /* Thumb color matching button color */
 }
 .image-with-text {
     display: flex;

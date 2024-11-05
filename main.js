@@ -18,8 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentTab = document.getElementById("currentTab");
   const fullscreenToggle = document.getElementById("fullscreenToggle");
   const editor = document.querySelector(".editor");
+  const loadingScreen = document.getElementById("editorloadingscreen");
   let startedTheBack = false
   let pipWindow
+  let [path, ...params] = ""
 
   function showGoodbyeScreen() {
     const goodbyeScreen = document.getElementById('goodbyeScreen');
@@ -128,74 +130,79 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function loadFileContent(filename, content) {
     document.getElementById("currentTab").textContent = filename;
-    const iframeDoc = editorFrame.contentDocument || editorFrame.contentWindow.document;
-    const fileExtension = filename.split('.').pop();
-  
-    // Initialize global `window.parts` array if it doesn't exist
-    if (!window.parts) {
-      window.parts = [];
-    }
-  
-    // Get the 'part' parameter from the URL hash if it exists
-    const hash = window.location.hash.substring(1);
-    const [, partParam] = hash.split('&');
-    let part = null;
+      const iframeDoc = editorFrame.contentDocument || editorFrame.contentWindow.document;
+      const fileExtension = filename.split('.').pop();
     
-    if (partParam && partParam.startsWith('part=')) {
-      part = partParam.split('=')[1];
-      // Add part to the global parts array
-      window.parts.push(part);
-    }
-  
-    iframeDoc.open();
-  
-    if (fileExtension === 'txt') {
-      iframeDoc.write(`
-        <style>
-          body {
-            color: white;
-            background-color: #1e1e1e;
-            font-family: monospace;
-            padding: 10px;
-          }
-        </style>
-        <pre>${content}</pre>
-        <script>
-          // Access the global parts array in the iframe
-          const parts = window.parent.parts;
-        <\/script>
-      `);
-    } else if (fileExtension === 'link') {
-      const fileLi = document.createElement("li");
-      fileLi.innerHTML = `<i class="fas fa-link"></i> ${content}`;
-      fileLi.classList.add("link-file");
-      fileLi.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const url = data[key][content].trim();
-        window.open(url, "_blank");
-      });
-    } else {
-      iframeDoc.write(`
-        ${content}
-        <script>
-          // Access the global parts array in the iframe
-          var parts = window.parent.parts;
-          document.addEventListener("click", function(event) {
-            const target = event.target;
-            if (target.tagName === "A" && target.getAttribute("href")) {
-              event.preventDefault();
-              window.parent.location.href = target.href;
+      // Initialize global `window.parts` array if it doesn't exist
+      if (!window.parts) {
+        window.parts = [];
+      }
+    
+      // Get the 'part' parameter from the URL hash if it exists
+      const hash = window.location.hash.substring(1);
+      const [, partParam] = hash.split('&');
+      let part = null;
+      
+      if (partParam && partParam.startsWith('part=')) {
+        part = partParam.split('=')[1];
+        // Add part to the global parts array
+        window.parts.push(part);
+      }
+    
+      iframeDoc.open();
+    
+      if (fileExtension === 'txt') {
+        iframeDoc.write(`
+          <style>
+            body {
+              color: white;
+              background-color: #1e1e1e;
+              font-family: monospace;
+              padding: 10px;
             }
-          });
-        <\/script>
-      `);
-    }
+          </style>
+          <pre>${content}</pre>
+          <script>
+            // Access the global parts array in the iframe
+            const parts = window.parent.parts;
+          <\/script>
+        `);
+      } else if (fileExtension === 'link') {
+        const fileLi = document.createElement("li");
+        fileLi.innerHTML = `<i class="fas fa-link"></i> ${content}`;
+        fileLi.classList.add("link-file");
+        fileLi.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const url = data[key][content].trim();
+          window.open(url, "_blank");
+        });
+      } else {
+        iframeDoc.write(`
+          ${content}
+          <script>
+            // Access the global parts array in the iframe
+            var parts = window.parent.parts;
+            document.addEventListener("click", function(event) {
+              const target = event.target;
+              if (target.tagName === "A" && target.getAttribute("href")) {
+                event.preventDefault();
+                window.parent.location.href = target.href;
+              }
+            });
+          <\/script>
+        `);
+      }
   
-    iframeDoc.close();
+      iframeDoc.close();
+
+      params.forEach(param => {
+        if (param === 'fullscreen=true') {
+          editor.classList.add("fullscreen"); // Apply fullscreen only to .editor
+        }
+    });
   }
   
   
-
   function loadFileFromHash(data) {
     const hash = window.location.hash.substring(1); // Get hash without the '#'
     if (!window.parts) {
@@ -208,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
   
-    const [path, ...params] = hash.split('&');
+    [path, ...params] = hash.split('&');
     const pathSegments = path.split('/').filter(Boolean); // Split path into segments
     let currentData = data;
     let fullscreen = false;
@@ -218,8 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (param.startsWith('part=')) {
             const part = param.split('=')[1];
             window.parts.push(part); // Add each part to the global parts array
-        } else if (param === 'fullscreen=true') {
-          editor.classList.toggle("fullscreen"); // Apply fullscreen only to .editor
         }
     });
   
@@ -259,6 +264,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       console.warn(`File not found for path: ${hash}`);
     }
+
+    currentTab.innerText = filename
   }
   
   

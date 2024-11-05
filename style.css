@@ -7,6 +7,7 @@
 
   :root {
     interpolate-size: allow-keywords;
+    transition: all 0.6s ease;
   }
   
   body {
@@ -16,7 +17,15 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    opacity: 1;
+    transition: opacity 0.5s ease;
   }
+
+  body.hidden {
+    opacity: 0;
+  }
+
+
   .container {
     display: flex;
     width: 90vw;
@@ -207,6 +216,7 @@
 .iframe-file {
   color: #4a90e2; /* Different color for iframe links */
   cursor: pointer;
+  text-shadow: 0 0 5px #4a90e2;
 }
 
   /* Make sure the main editor takes up all available space */
@@ -297,8 +307,10 @@
 .main-editor {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  height: 100%;  /* Full height of its container */
+  width: 100%;   /* Full width of its container */
+  overflow: hidden; /* Prevents overflow from going outside the main editor */
+  position: relative; /* Makes this the containing block for absolutely positioned children */
 }
 
 .tabs {
@@ -420,13 +432,33 @@
   transition: opacity 0.5s ease; /* Fade-out transition */
 }
 
+#editorloadingscreen {
+  position: absolute; /* Positioned relative to the .main-editor */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0); /* Semi-transparent overlay color */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    z-index: 2; /* Ensure it appears above other content in the main editor */
+    opacity: 0;
+    pointer-events: none; /* Allows clicks to pass through to the content below */
+    transition: opacity 0.5s ease; /* Fade-out transition */
+}
 
 .loader {
+  position: relative;
   width: 50px;
   height: 50px;
   border: 5px solid #333;
   border-top: 5px solid #ffffff;
   border-radius: 50%;
+  top: 50%;
+  left: 50%;
   animation: spin 1s linear infinite;
 }
 

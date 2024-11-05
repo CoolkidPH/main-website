@@ -1,79 +1,90 @@
 function Main() {
-    let scrollFrame = document.getElementById('scrollFrame');
-let cards = scrollFrame.children;
-let currentIndex = 0;
-let autoScrollInterval;
-let userInteracted = false;
 
-function scrollToNextCard() {
-    currentIndex = (currentIndex + 1) % cards.length;
-    const nextCard = cards[currentIndex];
-    if (currentIndex === 0) {
-        scrollFrame.scrollLeft = -1000
-    } else {
-        scrollFrame.scrollLeft = nextCard.offsetLeft;
+    const content = document.querySelector('.content');
+    const lineNumbers = document.getElementById('line-numbers');
+
+    function generateLineNumbers() {
+        if (content && lineNumbers) {
+            // Clear existing line numbers
+            lineNumbers.innerHTML = '';
+
+            // Get the height of the content
+            const contentHeight = content.offsetHeight;
+
+            // Define the line number height (adjust based on font size and layout)
+            const lineHeight = 24; // Customize this based on your design preferences
+
+            // Calculate the number of lines needed based on content height
+            const numberOfLines = Math.ceil(contentHeight / lineHeight);
+
+            // Generate line numbers dynamically
+            for (let i = 1; i <= numberOfLines; i++) {
+                const line = document.createElement('div');
+                line.textContent = i;
+                line.style.height = `${lineHeight}px`;
+                lineNumbers.appendChild(line);
+            }
+        }
+        
     }
-}
 
-function startAutoScroll() {
-    if (!userInteracted) {
-        autoScrollInterval = setInterval(scrollToNextCard, 3000); // Change card every 3 seconds
+    // Call function on initial load and on window resize for responsiveness
+    window.addEventListener('load', generateLineNumbers);
+    window.addEventListener('resize', generateLineNumbers);
+
+    function applySlideInEffect() {
+        document.querySelectorAll('*').forEach((element) => {
+            element.classList.add('slide-in');
+            setInterval(()=>{
+                element.classList.remove('slide-in');
+                element.classList.add('loaded');
+            }, 499)
+        });
+        setInterval(refreshAllFilters, 500)
     }
-}
+    
+    window.addEventListener('load', () => {
+        applySlideInEffect();
+    });
+    
+    // Apply the slide-in effect on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        applySlideInEffect();
+    });    
 
-function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-}
-
-// Start auto-scroll on page load
-startAutoScroll();
-
-// Pause auto-scroll when the user interacts with the scroll frame
-scrollFrame.addEventListener('mouseover', () => {
-    userInteracted = true;
-    stopAutoScroll();
-});
-
-// Resume auto-scroll after a period of inactivity
-scrollFrame.addEventListener('mouseleave', () => {
-    userInteracted = false;
-    startAutoScroll();
-});
-
-// Reset the scroll position to the first card when the end is reached
-scrollFrame.addEventListener('scroll', () => {
-    if (scrollFrame.scrollLeft >= scrollFrame.scrollWidth - scrollFrame.clientWidth) {
-        currentIndex = -1; // Reset index to -1 so it goes to 0 in scrollToNextCard()
+    function refreshAllFilters() {
+        document.querySelectorAll('*').forEach((element) => {
+            const currentFilter = window.getComputedStyle(element).filter; // Get the current filter
+            element.style.filter = 'none'; // Temporarily clear the filter
+            void element.offsetWidth; // Trigger reflow to apply the change
+            element.style.filter = currentFilter; // Reapply the original filter
+        });
     }
-});
 
-const content = document.querySelector('.content');
-const lineNumbers = document.getElementById('line-numbers');
-
-function generateLineNumbers() {
-    // Clear existing line numbers
-    lineNumbers.innerHTML = '';
-
-    // Get the height of the content
-    const contentHeight = content.offsetHeight;
-
-    // Define the line number height (adjust based on font size and layout)
-    const lineHeight = 24; // Customize this based on your design preferences
-
-    // Calculate the number of lines needed based on content height
-    const numberOfLines = Math.ceil(contentHeight / lineHeight);
-
-    // Generate line numbers dynamically
-    for (let i = 1; i <= numberOfLines; i++) {
-        const line = document.createElement('div');
-        line.textContent = i;
-        line.style.height = `${lineHeight}px`;
-        lineNumbers.appendChild(line);
+    // Reverse the filter effect before the user leaves the page
+    function reverseFilter() {
+        elements.forEach((element) => {
+          element.style.transition = 'filter 0.5s ease'; // Optional: smooth transition
+          element.style.filter = 'none'; // Remove the filter for the reverse effect
+        });
+      }
+            
+      // Intercept navigation to add delay for the reverse effect
+    function handleNavigation(event) {
+        event.preventDefault(); // Stop immediate navigation
+        const targetUrl = event.currentTarget.href || event.currentTarget.action;
+    
+        reverseFilter(); // Apply the reverse effect
+    
+        setTimeout(() => {
+        window.location.href = targetUrl; // Navigate after delay
+        }, 500); // Adjust this delay to match your transition duration
     }
-}
+    
 
-// Call function on initial load and on window resize for responsiveness
-window.addEventListener('load', generateLineNumbers);
-window.addEventListener('resize', generateLineNumbers);
+     // Attach event listeners to links and forms to intercept navigation
+        document.querySelectorAll('*').forEach((link) => {
+            link.addEventListener('click', handleNavigation);
+        });
 }
 Main()
