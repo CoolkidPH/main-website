@@ -1,5 +1,5 @@
 // Define the base URL for easy modification
-const BASE_URL = "http://127.0.0.1:5000";
+const BASE_URL = "http://api.anrat.xyz:5000/";
 const YTplaylistId = "PLAEnfbyXD6VmNMtp8F2ylofRc6nautGPk"
 const gifList = [
   'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHBjMWYyb3ZqYzkwenVneGwya3JpcmEyZDJwMGlkbjg1eHdjdzBqMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vRnoppYtfEbemBO/giphy.webp', // Replace with actual GIF URLs
